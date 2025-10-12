@@ -17,7 +17,7 @@ int main() {
 
     int dist[N][N], nextHop[N][N];
 
-    // Initialize distance and next hop
+    // Initialize distance and next hop tables
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             dist[i][j] = cost[i][j];
@@ -31,23 +31,9 @@ int main() {
     }
 
     int updated;
-    int iteration = 1;
-
+    // DVR Iterations until no update
     do {
         updated = 0;
-        printf("\n=== Iteration %d ===\n", iteration++);
-
-        // Print current routing tables
-        for (int i = 0; i < n; i++) {
-            printf("\nRouting Table for Node %d:\n", i);
-            printf("Dest\tNextHop\tDistance\n");
-            for (int j = 0; j < n; j++) {
-                if (i != j)
-                    printf("%d\t%d\t%d\n", j, nextHop[i][j], dist[i][j]);
-            }
-        }
-
-        // Update phase (distance vector exchange)
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 for (int k = 0; k < n; k++) {
@@ -59,17 +45,20 @@ int main() {
                 }
             }
         }
-
     } while (updated);
 
-    // Final tables after convergence
-    printf("\n=== Final Routing Tables ===\n");
+    // ✅ Final Converged Routing Tables
+    printf("\n=== Final Converged Routing Tables ===\n");
     for (int i = 0; i < n; i++) {
         printf("\nRouting Table for Node %d:\n", i);
-        printf("Dest\tNextHop\tDistance\n");
+        printf("Destination\tNextHop\tDistance\n");
         for (int j = 0; j < n; j++) {
-            if (i != j)
-                printf("%d\t%d\t%d\n", j, nextHop[i][j], dist[i][j]);
+            if (i != j) {
+                if (dist[i][j] >= INF)
+                    printf("%d\t\t-\tINF\n", j);
+                else
+                    printf("%d\t\t%d\t%d\n", j, nextHop[i][j], dist[i][j]);
+            }
         }
     }
 
