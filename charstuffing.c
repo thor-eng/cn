@@ -1,8 +1,8 @@
 #include<stdio.h>
 #include<string.h>
 
-#define FLAG '~'
-#define ESC '\\'
+#define FLAG 'F'
+#define ESC 'E'
 
 void char_stuffing(char data[]){
     char stuffed[200];

@@ -3,8 +3,8 @@
 
 void byte_count(char data[]) {
     int len = strlen(data);
-    int count = len + 1;
-    printf("Frame: %02d%s\n", count, data);
+    int count = len ;
+    printf("Frame: %d%s\n", count, data);
 }
 
 int main() {
